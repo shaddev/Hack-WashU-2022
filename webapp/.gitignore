@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# Use react to create a new website
+npx create-react-app my-app
+cd my-app
+npm-start
