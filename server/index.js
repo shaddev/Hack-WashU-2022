@@ -36,7 +36,6 @@ app.post('/add_project', jsonParser, function(req, res) {
 app.post('/add_student',jsonParser,function(req, res) {
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
-      username:req.body.username,
       involved_projects:[],
       full_name:req.body.full_name,
       pass_hash:hash,
