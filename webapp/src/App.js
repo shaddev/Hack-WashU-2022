@@ -27,7 +27,7 @@ function App() {
         <Route path='/login' element={<LoginPage loggedInAttributes={[isLoggedIn, setIsLoggedIn]} userAttributes={[user, setUser]}/>}/>  
         <Route path='/signup' element={<SignUpPage />} />
         <Route path='student' element={<Protected isLoggedIn={isLoggedIn} matchType={user.type==='student'}/>}> 
-          <Route path='view' element={<StudentViewPage />} />
+          <Route path='view' element={<StudentViewPage user={user}/>} />
           <Route path='upload-project' element={<UploadProject user={user}/>} />
         </Route>
         <Route path='contributor' element={<Protected isLoggedIn={isLoggedIn} matchType={user.type==='contributor'}/>}> 

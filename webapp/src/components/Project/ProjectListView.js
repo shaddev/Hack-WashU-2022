@@ -15,7 +15,7 @@ const ProjectListView = (props) => {
 
         <div>
             <h2>
-                Your projects
+                Projects
             </h2>
             {displayProjects}
         </div>

@@ -45,15 +45,20 @@ app.post('/signin_student', (req, res) => {
     if (result.length!=0){
       console.log(password)
       console.log(result[0]["pass_hash"])
-      await bcrypt.compare(password, result[0]["pass_hash"], function(err, correct) {
-        if (!correct || email!=result[0]["email"]) {
-            console.log("Incorrect")
-            return res.status(401).end()
-        }
-        console.log("Correct")
-        return res.end()
-      });
+      await bcrypt.compare(password, result[0]["pass_hash"])
+                .then((result) => {
+                    console.log(result)
+                    if(result){
+                        res.send({email: email})
+                    }
+                    else{
+                        res.status(401).end()
+                    }
+                });
+    } else{
+        res.status(401).end()
     }
+
   });
 })
 
@@ -69,14 +74,18 @@ app.post('/signin_contributor', (req, res) => {
     if (result.length!=0){
       console.log(password)
       console.log(result[0]["pass_hash"])
-      await bcrypt.compare(password, result[0]["pass_hash"], function(err, correct) {
-        if (!correct || email!=result[0]["email"]) {
-            console.log("Incorrect")
-            return res.status(401).end()
-        }
-        console.log("Correct")
-        return res.end()
-      });
+      await bcrypt.compare(password, result[0]["pass_hash"])
+                   .then((result) => {
+                    console.log(result)
+                    if(result){
+                        res.send({email: email})
+                    }
+                    else{
+                        res.status(401).end()
+                    }
+                   });
+    } else{
+        res.status(401).end()
     }
   });
 
