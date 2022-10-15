@@ -4,9 +4,6 @@ import "../../css/index.css"
 // import app.css
 import "../../css/Heading.css"
 
-
-
-
 const IndexPage = () => {
 
     const navigate = useNavigate()

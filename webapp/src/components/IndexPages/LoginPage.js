@@ -4,12 +4,12 @@ import url from '../../constants/apiurl'
 
 const LoginPage = (props) => {
 
-    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [isLoggedIn, setIsLoggedIn] = props.loggedInAttributes
 
-    const onChangeUsername = (event) => {
-        setUsername(event.target.value)
+    const onChangeEmail = (event) => {
+        setEmail(event.target.value)
     } 
 
     const onChangePassword = (event) => {
@@ -18,9 +18,9 @@ const LoginPage = (props) => {
 
     const loginHandler = async (event) => {
 
-        axios.get(url+"/get-username", 
+        axios.get(url+"/login", 
                 {params: {
-                    username: username,
+                    email: email,
                     password: password
                 }})
             .then((response) => {
@@ -33,7 +33,7 @@ const LoginPage = (props) => {
                 console.log("Request complete")
             })
         setIsLoggedIn(true)
-        console.log(username)
+        console.log(email)
         console.log(password)
     }
 
@@ -43,13 +43,13 @@ const LoginPage = (props) => {
             <div className="Auth-form-content">
             <h3 className="Auth-form-title">Sign In</h3>
             <div className="form-group mt-3">
-                <label>Username</label>
+                <label>Email</label>
                 <input
                 type="text"
                 className="form-control mt-1"
-                placeholder="Enter username"
-                onChange = {onChangeUsername}
-                value={username}
+                placeholder="Enter email"
+                onChange = {onChangeEmail}
+                value={email}
                 />
             </div>
             <div className="form-group mt-3">

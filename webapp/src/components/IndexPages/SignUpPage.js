@@ -5,13 +5,13 @@ import url from '../../constants/apiurl'
 
 const SignUpPage = (props) => {
 
-    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [fullName, setFullName] = useState("")
     const [type, setType] = useState("student") // default to student
 
-    const onChangeUsername = (event) => {
-        setUsername(event.target.value)
+    const onChangeEmail = (event) => {
+        setEmail(event.target.value)
     } 
 
     const onChangePassword = (event) => {
@@ -28,13 +28,20 @@ const SignUpPage = (props) => {
     }
 
     const signUpHandler = (event) => {
-        axios.get(url+"/get-username", 
-                {params: {
-                    username: username,
-                    password: password
-                }})
+
+        let signUpUrl;
+
+        if (type === 'student'){
+            signUpUrl = url + "/add_student"
+        }
+        else{
+            signUpUrl = url + "/add_contributor"
+        }
+
+        axios.post(signUpUrl, 
+                {email: email, pass_hash: password, full_name: fullName})
             .then((response) => {
-                
+                console.log(response)
             })
             .catch((err) => {
                 console.log(err)
@@ -43,7 +50,7 @@ const SignUpPage = (props) => {
                 console.log("Request complete")
             })
         
-        console.log(username)
+        console.log(email)
         console.log(password)
     }
 
@@ -53,13 +60,13 @@ const SignUpPage = (props) => {
             <div className="Auth-form-content">
             <h3 className="Auth-form-title">Sign Up</h3>
             <div className="form-group mt-3">
-                <label>Username</label>
+                <label>Email</label>
                 <input
                 type="text"
                 className="form-control mt-1"
-                placeholder="Enter username"
-                onChange = {onChangeUsername}
-                value={username}
+                placeholder="Enter email"
+                onChange = {onChangeEmail}
+                value={email}
                 />
             </div>
             <div className="form-group mt-3">
