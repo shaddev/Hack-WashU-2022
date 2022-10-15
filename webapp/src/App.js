@@ -9,6 +9,9 @@ import ContributorViewPage from './components/Contributor/ContributorViewPage';
 import "bootstrap/dist/css/bootstrap.min.css";
 import SignUpPage from './components/IndexPages/SignUpPage';
 
+//import the css file
+import './App.css';
+
 function App() {
     
   
@@ -17,6 +20,8 @@ function App() {
 
   return (
     <Router>
+    
+
       <Heading isLoggedIn={isLoggedIn} user={user}/>
       <Routes>
         <Route path='/' element={<IndexPage/>} />
@@ -34,3 +39,5 @@ function App() {
 }
 
 export default App;
+
+
