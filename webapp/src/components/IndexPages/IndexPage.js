@@ -21,7 +21,7 @@ const IndexPage = () => {
             <h3>
                 Home Page here
             </h3>
-            <img src="https://cdn.discordapp.com/attachments/1030279651504955453/1030922978428457013/unknown.png" class="rounded mx-auto d-block"alt="Responsive image" height='400' width="400"/>
+            <img src="https://cdn.discordapp.com/attachments/1030279651504955453/1030922978428457013/unknown.png" className="rounded mx-auto d-block"alt="Responsive image" height='400' width="400"/>
             
             <div className="text-center">
                 <button className="btn btn-primary" href="#" role="button" onClick={navigateSignUp}>

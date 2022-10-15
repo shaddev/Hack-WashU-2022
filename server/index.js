@@ -351,7 +351,7 @@ app.post('/unlike_project',jsonParser,function(req, res){
   res.send("POST successfull")
 });
 
-app.listen(process.env.PORT||5000, () => {
+app.listen(process.env.PORT||3000, () => {
 	client.connect(err => {
         console.log("AYYY LMAO\n MONGODB CONNECTED!!!")
 	})
