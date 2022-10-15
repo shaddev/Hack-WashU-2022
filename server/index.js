@@ -27,6 +27,14 @@ app.get('/get_project/:id', (req, res) => {
     res.send(result)
 	});
 });
+
+app.get('/get_all_projects', (req, res) => {
+  var query = {}
+  const collection = client.db("hackwashu2022").collection("projects");
+  collection.find(query).toArray(function(err,result){
+    res.send(result)
+	});
+});
 /*
 app.post('/add_project', jsonParser, function(req, res) {
   
@@ -69,6 +77,7 @@ app.post('/edit_student',jsonParser,function(req, res) {
   });
 });
 /*Contributor*/
+
 
 app.listen(process.env.PORT||5000, () => {
 	client.connect(err => {
