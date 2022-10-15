@@ -40,7 +40,7 @@ app.post('/signin_student', (req, res) => {
   const { email, password } = req.body
   console.log(req.body)
   var query = {email : email}
-  const collection = client.db("hackwashu2022").collection("student");
+  const collection = client.db("hackwashu2022").collection("students");
   collection.find(query).toArray(async function(err,result){
     if (result.length!=0){
       console.log(password)
