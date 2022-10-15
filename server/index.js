@@ -216,10 +216,6 @@ app.post('/edit_project',jsonParser,function(req, res) {
 
 /*Student*/
 app.post('/add_student',jsonParser,function(req, res) {
-  var payload = verify(req)
-  if(payload==400||payload==401){
-    return res.status(payload).end()
-  }
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
       involved_projects:[],
@@ -269,10 +265,6 @@ app.post('/edit_student',jsonParser,function(req, res) {
 
 
 app.post('/add_contributor',jsonParser,function(req, res) {
-  var payload = verify(req)
-  if(payload==400||payload==401){
-    return res.status(payload).end()
-  }
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
       full_name:req.body.full_name,
