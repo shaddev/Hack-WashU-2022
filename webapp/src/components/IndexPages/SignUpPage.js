@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import axios from 'axios';
 import {useNavigate} from "react-router-dom"
-import url from '../constants/apiurl'
+import url from '../../constants/apiurl'
 
 const SignUpPage = (props) => {
 

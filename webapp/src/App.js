@@ -1,13 +1,13 @@
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import React, {useEffect, useState} from "react"
-import LoginPage from './components/LoginPage'
-import Heading from './components/Heading';
-import IndexPage from './components/IndexPage';
-import Protected from './components/Protected';
-import StudentViewPage from './components/StudentViewPage';
-import ContributorViewPage from './components/ContributorViewPage';
+import LoginPage from './components/IndexPages/LoginPage'
+import Heading from './components/IndexPages/Heading';
+import IndexPage from './components/IndexPages/IndexPage';
+import Protected from './components/IndexPages/Protected';
+import StudentViewPage from './components/Student/StudentViewPage';
+import ContributorViewPage from './components/Contributor/ContributorViewPage';
 import "bootstrap/dist/css/bootstrap.min.css";
-import SignUpPage from './components/SignUpPage';
+import SignUpPage from './components/IndexPages/SignUpPage';
 
 function App() {
     
@@ -26,7 +26,7 @@ function App() {
           <Route path='view' element={<StudentViewPage />} />
         </Route>
         <Route path='contributor' element={<Protected isLoggedIn={isLoggedIn} matchType={user.type==='contributor'}/>}> 
-          <Route path='view' element={<ContributorViewPage />} />
+          <Route path='view' element={<ContributorViewPage user={user}/>} />
         </Route>
       </Routes>
     </Router>
