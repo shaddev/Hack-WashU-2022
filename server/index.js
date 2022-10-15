@@ -47,6 +47,7 @@ app.post('/add_project',jsonParser,function(req, res) {
       goal:req.body.goal,
       contact:req.body.contact,
       links:req.body.links
+      likers:[]
     }
     const collection = client.db("hackwashu2022").collection("students");
     collection.insert(obj);
@@ -138,20 +139,27 @@ app.post('/edit_contributor',jsonParser,function(req, res) {
     collection.update(query,{$set: obj});
     res.send("POST successful!")
   });
-});/*
+});
+
+
+//Node done yet
 app.post('/like_project',jsonParser,function(req, res){
-  var project_query = {_id : ObjectId(req.params.id)}
+  var obj ={
+    likers:req.body.email
+  }
+  var project_query = {_id : ObjectId(req.body.project_id)}
   const project_collection = client.db("hackwashu2022").collection("projects");
-  var project_data=null
-  collection.find(query).toArray(function(err,result){
+  //var project_data=null
+  /*project_collection.find(query).toArray(function(err,result){
     project_data=result;
-	});
-  res.send(project_data)
+	});*/
+  project_collection.update(project_query,{$push: obj});
+  res.send("POST successfull")
 
 
 
 
-*/
+
 /*
 
 
@@ -165,8 +173,8 @@ app.post('/like_project',jsonParser,function(req, res){
   var query = {_id : ObjectId(id)}
   const collection = client.db("hackwashu2022").collection("contributors");
   collection.update(query,{$set: obj});
-  res.send("POST successful!")
-});*/
+  res.send("POST successful!")*/
+});
 app.listen(process.env.PORT||5000, () => {
 	client.connect(err => {
         console.log("AYYY LMAO\n MONGODB CONNECTED!!!")
