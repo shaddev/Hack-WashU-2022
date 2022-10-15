@@ -21,12 +21,17 @@ const client = new MongoClient(uri, { useUnifiedTopology: true});
 
 var jsonParser = bodyParser.json()
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'credentials': true,
+  'origin': ['http://localhost:3000', 'http://localhost:3000'],
+}))
 app.use(cookieParser())
-
+/*
 app.get('/', (req, res) => {
 	res.send('Hack WashU 2022 API');
-});
+});*/
 
 
 
