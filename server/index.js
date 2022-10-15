@@ -3,6 +3,7 @@ var app = express();
 const bodyParser = require('body-parser');
 const { request } = require('http');
 require('dotenv').config();
+const bcrypt = require("bcrypt")
 
 const mongodb_user = process.env.MONGODB_USER
 const mongodb_pass = process.env.MONGODB_PASS
@@ -18,16 +19,38 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', (req, res) => {
 	res.send('Hack WashU 2022 API');
 });
-
+/*Projects*/
 app.get('/get_project/:id', (req, res) => {
-    
   var query = {_id : ObjectId(req.params.id)}
   const collection = client.db("hackwashu2022").collection("projects");
   collection.find(query).toArray(function(err,result){
     res.send(result)
 	});
 });
-
+/*
+app.post('/add_project', jsonParser, function(req, res) {
+  
+	db.set(req.body.hash, req.body.certificate).then(() => { });
+	res.send("POST successful!")
+});*/
+/*Student*/
+app.post('/add_student',jsonParser,function(req, res) {
+  bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
+    var obj = {
+      username:req.body.username,
+      involved_projects:[],
+      full_name:req.body.full_name,
+      pass_hash:hash,
+      email:req.body.email
+    }
+  });
+  const collection = client.db("hackwashu2022").collection("students");
+  collection.insert(obj)
+  
+	db.set(req.body.hash, req.body.certificate).then(() => { });
+	res.send("POST successful!")
+});
+/*Contributor*/
 
 app.listen(process.env.PORT||3000, () => {
 	client.connect(err => {
