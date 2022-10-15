@@ -30,7 +30,6 @@ app.get('/get_project/:id', (req, res) => {
 /*
 app.post('/add_project', jsonParser, function(req, res) {
   
-	db.set(req.body.hash, req.body.certificate).then(() => { });
 	res.send("POST successful!")
 });*/
 /*Student*/
@@ -45,9 +44,7 @@ app.post('/add_student',jsonParser,function(req, res) {
     }
   });
   const collection = client.db("hackwashu2022").collection("students");
-  collection.insert(obj)
-  
-	db.set(req.body.hash, req.body.certificate).then(() => { });
+  collection.insert(obj);
 	res.send("POST successful!")
 });
 /*Contributor*/
