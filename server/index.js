@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const { request } = require('http');
 require('dotenv').config();
 const bcrypt = require("bcrypt")
+const cors = require('cors');
+app.use(cors());
 
 const mongodb_user = process.env.MONGODB_USER
 const mongodb_pass = process.env.MONGODB_PASS
@@ -76,7 +78,16 @@ app.post('/edit_student',jsonParser,function(req, res) {
     res.send("POST successful!")
   });
 });
-/*Contributor*/
+
+
+
+
+
+
+
+
+
+
 
 
 app.listen(process.env.PORT||5000, () => {
