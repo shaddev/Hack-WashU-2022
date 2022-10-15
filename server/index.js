@@ -42,14 +42,14 @@ app.post('/add_student',jsonParser,function(req, res) {
       pass_hash:hash,
       email:req.body.email
     }
+    const collection = client.db("hackwashu2022").collection("students");
+    collection.insert(obj);
+    res.send("POST successful!")
   });
-  const collection = client.db("hackwashu2022").collection("students");
-  collection.insert(obj);
-	res.send("POST successful!")
 });
 /*Contributor*/
 
-app.listen(process.env.PORT||3000, () => {
+app.listen(process.env.PORT||5000, () => {
 	client.connect(err => {
         console.log("AYYY LMAO\n MONGODB CONNECTED!!!")
 	})
