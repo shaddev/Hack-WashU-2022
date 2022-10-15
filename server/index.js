@@ -46,6 +46,20 @@ app.post('/add_student',jsonParser,function(req, res) {
     res.send("POST successful!")
   });
 });
+app.post('/edit_student',jsonParser,function(req, res) {
+  bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
+    var obj = {
+      full_name:req.body.full_name,
+      pass_hash:hash,
+      email:req.body.email
+    }
+    var id=req.body._id
+    var query = {_id : ObjectId(id)}
+    const collection = client.db("hackwashu2022").collection("students");
+    collection.update(query,{$set: obj});
+    res.send("POST successful!")
+  });
+});
 /*Contributor*/
 
 app.listen(process.env.PORT||5000, () => {
