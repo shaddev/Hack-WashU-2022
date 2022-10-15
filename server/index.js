@@ -28,37 +28,58 @@ app.use(cors({
   'origin': ['http://localhost:3000', 'http://localhost:3000'],
 }))
 app.use(cookieParser())
-/*
+
 app.get('/', (req, res) => {
 	res.send('Hack WashU 2022 API');
-});*/
+});
 
 
 
-app.post('/signin', (req, res) => {
+app.post('/signin_student', (req, res) => {
   // Get credentials from JSON body
   const { email, password } = req.body
+  console.log(req.body)
   var query = {email : email}
   const collection = client.db("hackwashu2022").collection("contributors");
-  collection.find(query).toArray(function(err,result){
+  collection.find(query).toArray(async function(err,result){
     if (result.length!=0){
       console.log(password)
       console.log(result[0]["pass_hash"])
-      bcrypt.compare(password, result[0]["pass_hash"], function(err, correct) {
+      await bcrypt.compare(password, result[0]["pass_hash"], function(err, correct) {
         if (!correct || email!=result[0]["email"]) {
             console.log("Incorrect")
             return res.status(401).end()
         }
         console.log("Correct")
+        return res.end()
       });
     }
-    else{
-      console.log("Incorrect")
-    }
-    return res.status(401).end()
   });
 
-  // Create a new token with the username in the payload
+
+
+app.post('/signin_contributor', (req, res) => {
+  // Get credentials from JSON body
+  const { email, password } = req.body
+  console.log(req.body)
+  var query = {email : email}
+  const collection = client.db("hackwashu2022").collection("contributors");
+  collection.find(query).toArray(async function(err,result){
+    if (result.length!=0){
+      console.log(password)
+      console.log(result[0]["pass_hash"])
+      await bcrypt.compare(password, result[0]["pass_hash"], function(err, correct) {
+        if (!correct || email!=result[0]["email"]) {
+            console.log("Incorrect")
+            return res.status(401).end()
+        }
+        console.log("Correct")
+        return res.end()
+      });
+    }
+  });
+
+  /*// Create a new token with the username in the payload
   // and which expires 300 seconds after issue
   const token = jwt.sign({ email }, jwtKey, {
     algorithm: 'HS256',
@@ -69,7 +90,7 @@ app.post('/signin', (req, res) => {
   // set the cookie as the token string, with a similar max age as the token
   // here, the max age is in milliseconds, so we multiply by 1000
   res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 })
-  res.end()
+  res.end()*/
 })
 app.post('/signout', (req,res)=>{
   //Hehe lmao
@@ -99,12 +120,13 @@ function verify(req){
     return 400
   }
   return payload
-}
+}/*
 app.get('/welcome', (req, res) => {
   var payload = verify(req)
   if(payload==400||payload==401){
     return res.status(payload).end()
   }
+  console.log(payload)
   // Finally, return the welcome message to the user, along with their
   // username given in the token
   res.send(payload.email)
@@ -136,7 +158,7 @@ app.post('/refresh', (req, res) => {
 })
 
 
-
+*/
 
 
 
@@ -162,12 +184,12 @@ app.get('/get_all_projects', (req, res) => {
 	});
 });
 
-app.get('/get_student_projects', (req, res) => {
+app.get('/get_student_projects', (req, res) => {/*
   var payload = verify(req)
   if(payload==400||payload==401){
     return res.status(payload).end()
-  }
-  email=payload.email
+  }*/
+  email=req.body.email
   var query = {member_emails:{$elemMatch:{email}}}
   const collection = client.db("hackwashu2022").collection("projects");
   collection.find(query).toArray(function(err,result){
@@ -176,13 +198,13 @@ app.get('/get_student_projects', (req, res) => {
 });
 
 app.post('/add_project',jsonParser,function(req, res) {
-  var payload = verify(req)
+  /*var payload = verify(req)
   if(payload==400||payload==401){
     return res.status(payload).end()
-  }
+  }*/
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
-      member_emails:[payload.email],
+      member_emails:[req.body.email],
       description:req.body.description,
       image:req.body.img,
       goal:req.body.goal,
@@ -197,10 +219,10 @@ app.post('/add_project',jsonParser,function(req, res) {
 });
 
 app.post('/edit_project',jsonParser,function(req, res) {
-  var payload = verify(req)
+  /*var payload = verify(req)
   if(payload==400||payload==401){
     return res.status(payload).end()
-  }
+  }*/
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
       description:req.body.description,
@@ -242,10 +264,10 @@ app.get('/get_student/:email',jsonParser,function(req, res) {
 });
 
 app.post('/edit_student',jsonParser,function(req, res) {
-  var payload = verify(req)
+  /*var payload = verify(req)
   if(payload==400||payload==401){
     return res.status(payload).end()
-  }
+  }*/
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
       full_name:req.body.full_name,
@@ -291,10 +313,10 @@ app.get('/get_contributor/:email',jsonParser,function(req, res) {
 });
 
 app.post('/edit_contributor',jsonParser,function(req, res) {
-  var payload = verify(req)
+  /*var payload = verify(req)
   if(payload==400||payload==401){
     return res.status(payload).end()
-  }
+  }*/
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
       full_name:req.body.full_name,
@@ -310,10 +332,10 @@ app.post('/edit_contributor',jsonParser,function(req, res) {
 });
 
 app.post('/like_project',jsonParser,function(req, res){
-  var payload = verify(req)
+  /*var payload = verify(req)
   if(payload==400||payload==401){
     return res.status(payload).end()
-  }
+  }*/
   var project_obj ={
     likers:req.body.email
   }
@@ -331,10 +353,10 @@ app.post('/like_project',jsonParser,function(req, res){
 });
 
 app.post('/unlike_project',jsonParser,function(req, res){
-  var payload = verify(req)
+  /*var payload = verify(req)
   if(payload==400||payload==401){
     return res.status(payload).end()
-  }
+  }*/
   var project_obj ={
     likers:req.body.email
   }
@@ -351,7 +373,7 @@ app.post('/unlike_project',jsonParser,function(req, res){
   res.send("POST successfull")
 });
 
-app.listen(process.env.PORT||3000, () => {
+app.listen(process.env.PORT||5000, () => {
 	client.connect(err => {
         console.log("AYYY LMAO\n MONGODB CONNECTED!!!")
 	})

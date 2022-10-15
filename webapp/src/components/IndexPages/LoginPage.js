@@ -16,11 +16,15 @@ const LoginPage = (props) => {
         setPassword(event.target.value)
     } 
 
-    const loginHandler = async (event) => {
+    const loginHandler = (event) => {
 
         axios.post(url+"/signin", 
-                {email: email, password: password})
+                {password: password,email: email}, 
+                {headers: { 
+                      "Content-Type": "application/x-www-form-urlencoded"
+                    }})
             .then((response) => {
+                console.log(response)
                 setIsLoggedIn(true)
             })
             .catch((err) => {
