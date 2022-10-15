@@ -46,7 +46,7 @@ app.post('/add_project',jsonParser,function(req, res) {
       video:req.body.video_link,
       goal:req.body.goal,
       contact:req.body.contact,
-      links:req.body.links
+      links:req.body.links,
       likers:[]
     }
     const collection = client.db("hackwashu2022").collection("students");
@@ -141,19 +141,21 @@ app.post('/edit_contributor',jsonParser,function(req, res) {
   });
 });
 
-
-//Node done yet
+//Does not handle duplicate likes
 app.post('/like_project',jsonParser,function(req, res){
-  var obj ={
+  var project_obj ={
     likers:req.body.email
   }
   var project_query = {_id : ObjectId(req.body.project_id)}
   const project_collection = client.db("hackwashu2022").collection("projects");
-  //var project_data=null
-  /*project_collection.find(query).toArray(function(err,result){
-    project_data=result;
-	});*/
-  project_collection.update(project_query,{$push: obj});
+  project_collection.update(project_query,{$push: project_obj});
+
+  var contributor_obj ={
+    liked_projects:req.body.project_id
+  }
+  var contributor_query = {_id : ObjectId(req.body.contributor_id)}
+  const contributor_collection = client.db("hackwashu2022").collection("contributors");
+  contributor_collection.update(contributor_query,{$push: contributor_obj});
   res.send("POST successfull")
 
 
