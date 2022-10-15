@@ -141,42 +141,40 @@ app.post('/edit_contributor',jsonParser,function(req, res) {
   });
 });
 
-//Does not handle duplicate likes
 app.post('/like_project',jsonParser,function(req, res){
   var project_obj ={
     likers:req.body.email
   }
   var project_query = {_id : ObjectId(req.body.project_id)}
   const project_collection = client.db("hackwashu2022").collection("projects");
-  project_collection.update(project_query,{$push: project_obj});
+  project_collection.update(project_query,{$addToSet: project_obj});
 
   var contributor_obj ={
     liked_projects:req.body.project_id
   }
   var contributor_query = {_id : ObjectId(req.body.contributor_id)}
   const contributor_collection = client.db("hackwashu2022").collection("contributors");
-  contributor_collection.update(contributor_query,{$push: contributor_obj});
+  contributor_collection.update(contributor_query,{$addToSet: contributor_obj});
   res.send("POST successfull")
-
-
-
-
-
-/*
-
-
-  var contributor_obj = {
-    liked_projects:,
-  }
-  var project_obj = {
-    likers:,
-  }
-  var id=req.body._id
-  var query = {_id : ObjectId(id)}
-  const collection = client.db("hackwashu2022").collection("contributors");
-  collection.update(query,{$set: obj});
-  res.send("POST successful!")*/
 });
+
+app.post('/unlike_project',jsonParser,function(req, res){
+  var project_obj ={
+    likers:req.body.email
+  }
+  var project_query = {_id : ObjectId(req.body.project_id)}
+  const project_collection = client.db("hackwashu2022").collection("projects");
+  project_collection.update(project_query,{$pull: project_obj});
+
+  var contributor_obj ={
+    liked_projects:req.body.project_id
+  }
+  var contributor_query = {_id : ObjectId(req.body.contributor_id)}
+  const contributor_collection = client.db("hackwashu2022").collection("contributors");
+  contributor_collection.update(contributor_query,{$pull: contributor_obj});
+  res.send("POST successfull")
+});
+
 app.listen(process.env.PORT||5000, () => {
 	client.connect(err => {
         console.log("AYYY LMAO\n MONGODB CONNECTED!!!")
