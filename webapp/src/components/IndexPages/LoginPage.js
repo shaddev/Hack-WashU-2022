@@ -18,11 +18,8 @@ const LoginPage = (props) => {
 
     const loginHandler = async (event) => {
 
-        axios.get(url+"/login", 
-                {params: {
-                    email: email,
-                    password: password
-                }})
+        axios.post(url+"/signin", 
+                {email: email, password: password})
             .then((response) => {
                 setIsLoggedIn(true)
             })
