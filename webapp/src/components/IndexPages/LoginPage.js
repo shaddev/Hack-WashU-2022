@@ -18,7 +18,7 @@ const LoginPage = (props) => {
 
     const loginHandler = (event) => {
 
-        axios.post(url+"/signin", 
+        axios.post(url+"/signin_contributor", 
                 {password: password,email: email}, 
                 {headers: { 
                       "Content-Type": "application/x-www-form-urlencoded"
