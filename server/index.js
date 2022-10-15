@@ -37,6 +37,22 @@ app.get('/get_all_projects', (req, res) => {
     res.send(result)
 	});
 });
+
+app.post('/add_project',jsonParser,function(req, res) {
+  bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
+    var obj = {
+      member_emails:[req.body.username],
+      image:req.body.img_link,
+      video:req.body.video_link,
+      goal:req.body.goal,
+      contact:req.body.contact,
+      links:req.body.links
+    }
+    const collection = client.db("hackwashu2022").collection("students");
+    collection.insert(obj);
+    res.send("POST successful!")
+  });
+});
 /*
 app.post('/add_project', jsonParser, function(req, res) {
   
@@ -85,11 +101,72 @@ app.post('/edit_student',jsonParser,function(req, res) {
 
 
 
+/*Contributor*/
+
+
+app.post('/add_contributor',jsonParser,function(req, res) {
+  bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
+    var obj = {
+      full_name:req.body.full_name,
+      pass_hash:hash,
+      email:req.body.email,
+      liked_projects:[]
+    }
+    const collection = client.db("hackwashu2022").collection("contributors");
+    collection.insert(obj);
+    res.send("POST successful!")
+  });
+});
+app.get('/get_contributor/:email',jsonParser,function(req, res) {
+  var query = {email : req.params.email}
+  const collection = client.db("hackwashu2022").collection("contributors");
+  collection.find(query).toArray(function(err,result){
+    res.send(result)
+	});
+});
+
+app.post('/edit_contributor',jsonParser,function(req, res) {
+  bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
+    var obj = {
+      full_name:req.body.full_name,
+      pass_hash:hash,
+      email:req.body.email
+    }
+    var id=req.body._id
+    var query = {_id : ObjectId(id)}
+    const collection = client.db("hackwashu2022").collection("contributors");
+    collection.update(query,{$set: obj});
+    res.send("POST successful!")
+  });
+});/*
+app.post('/like_project',jsonParser,function(req, res){
+  var project_query = {_id : ObjectId(req.params.id)}
+  const project_collection = client.db("hackwashu2022").collection("projects");
+  var project_data=null
+  collection.find(query).toArray(function(err,result){
+    project_data=result;
+	});
+  res.send(project_data)
 
 
 
 
+*/
+/*
 
+
+  var contributor_obj = {
+    liked_projects:,
+  }
+  var project_obj = {
+    likers:,
+  }
+  var id=req.body._id
+  var query = {_id : ObjectId(id)}
+  const collection = client.db("hackwashu2022").collection("contributors");
+  collection.update(query,{$set: obj});
+  res.send("POST successful!")
+});*/
 app.listen(process.env.PORT||5000, () => {
 	client.connect(err => {
         console.log("AYYY LMAO\n MONGODB CONNECTED!!!")
