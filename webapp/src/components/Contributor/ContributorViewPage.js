@@ -9,7 +9,7 @@ const ContributorViewPage = (props) => {
     const [projects, setProjects] = useState()
 
     useEffect(() => {
-        axios.get(url+"/get-projects", {params: {username: user.username}})
+        axios.get(url+"/get-projects", {params: {email: user.email}})
              .then((response) => {
                 //setProjects here
              })
