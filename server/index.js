@@ -199,10 +199,12 @@ app.get('/get_student_projects', (req, res) => {/*
   if(payload==400||payload==401){
     return res.status(payload).end()
   }*/
-  email=req.body.email
+  var email=req.body.email
   var query = {member_emails:{$elemMatch:{email}}}
   const collection = client.db("hackwashu2022").collection("projects");
   collection.find(query).toArray(function(err,result){
+    console.log(result)
+    console.log(email)
     res.send(result)
 	});
 });
@@ -214,7 +216,7 @@ app.post('/add_project',jsonParser,function(req, res) {
   }*/
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
-      member_emails:[req.body.email],
+      member_emails:req.body.emails,
       title:req.body.title,
       description:req.body.description,
       image:req.body.image,

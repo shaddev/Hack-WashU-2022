@@ -8,20 +8,37 @@ const StudentViewPage = (props) => {
 
     const user = props.user;
 
-    const [projects, setProjects] = useState();
+    const [projects, setProjects] = useState([]);
     const navigate = useNavigate();
 
     const navigateUploadProject = () => {
         navigate('../upload-project')
     }
 
-    // useEffect(() => {
-    //     axios.get(url+"/get_student_projects", {params: {email: user.email}})
-    //          .then((response) => {
-    //             setProjects(response)
-    //          })
 
-    // }) 
+    useEffect(() => {
+        axios.get(url+"/get_student_projects", {params: {email: user.email}})
+             .then((response) => {
+                //setProjects here
+                console.log(response.data.length)
+                for(let i = 0; i < response.data.length; i++){
+                    var temp = projects.concat(response.data[i])
+                    setProjects(temp)
+                    console.log(response.data[i])
+                }
+             })
+    },[]) 
+    
+/*
+    if (projects === undefined){
+        return (
+            <div>
+                Loading...
+            </div>
+        )
+    }
+
+*/
 
 
     return(

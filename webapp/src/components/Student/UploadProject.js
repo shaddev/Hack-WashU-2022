@@ -52,7 +52,7 @@ const UploadProject = (props) => {
 
         blobToBase64(uploadedImage)
             .then(base64Image => 
-                axios.post(url+'/add_project', {title: title, member_emails:user.email, goal:goal, image: base64Image})
+                axios.post(url+'/add_project', {title: title, email:emails/*user.email*/, goal:goal, image: base64Image})
             )
         
     }
