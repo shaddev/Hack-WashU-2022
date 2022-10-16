@@ -49,7 +49,7 @@ const LoginPage = (props) => {
                 if (type === "student") {
                     navigate("/student/view");
                   } else if (type === "contributor") {
-                    navigate("/contributor/view");
+                    navigate("/contributor/likedprojects");
                   }
             })
             .catch((err) => {
@@ -64,9 +64,9 @@ const LoginPage = (props) => {
     return(
         <div className="basePage">
             <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign In</h3>
-            <div className="form-group mt-3">
-                <label>Email</label>
+            <h3 className="Auth-form-title text-center signInText">Sign In</h3>
+            <div className="form-group mt-3 text-center">
+                <label className="labelText">Email</label>
                 <input
                 type="text"
                 className="form-control mt-1"
@@ -75,8 +75,8 @@ const LoginPage = (props) => {
                 value={email}
                 />
             </div>
-            <div className="form-group mt-3">
-                <label>Password</label>
+            <div className="form-group mt-3 text-center">
+                <label className="labelText">Password</label>
                 <input
                 type="password"
                 className="form-control mt-1"
@@ -85,18 +85,20 @@ const LoginPage = (props) => {
                 value={password}
                 />
             </div>
-            <div>
-                    <input value="student" className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={type === 'student'} onChange={onChangeType}/>
-                    <label className="form-check-label" htmlFor="flexRadioDefault1">
-                     Student
-                    </label>
-                    <input value="contributor" className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked={type === 'contributor'} onChange={onChangeType}/>
-                    <label className="form-check-label" htmlFor="flexRadioDefault2">
-                    Contributor
-                    </label>
+            <div >
+                    <div className="form-inline form-group" style={{textAlign:"center"}}>
+                        <input value="student" className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={type === 'student'} onChange={onChangeType}/>
+                        <label className="form-check-label" htmlFor="flexRadioDefault1">
+                        Student
+                        </label>
+                        <input value="contributor" className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked={type === 'contributor'} onChange={onChangeType}/>
+                        <label className="form-check-label" htmlFor="flexRadioDefault2">
+                        Contributor
+                        </label>
+                    </div>
             </div>
-            <div className="d-grid gap-2 mt-3">
-                <button className="btn btn-primary" onClick={loginHandler}>
+            <div className="d-grid gap-2 mt-3 text-center">
+                <button className="btn btn-primary" onClick={loginHandler} style={{width: "50%", margin: "auto"}}>
                 Log In
                 </button>
             </div>

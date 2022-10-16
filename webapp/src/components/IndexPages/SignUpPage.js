@@ -61,8 +61,8 @@ const SignUpPage = (props) => {
     return(
         <div>
             <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign Up</h3>
-            <div className="form-group mt-3">
+            <h3 className="Auth-form-title text-center signInText">Sign Up</h3>
+            <div className="form-group mt-3 text-center">
                 <label>Email</label>
                 <input
                 type="text"
@@ -72,7 +72,7 @@ const SignUpPage = (props) => {
                 value={email}
                 />
             </div>
-            <div className="form-group mt-3">
+            <div className="form-group mt-3 text-center">
                 <label>Full Name</label>
                 <input
                 type="text"
@@ -82,7 +82,7 @@ const SignUpPage = (props) => {
                 value={fullName}
                 />
             </div>
-            <div className="form-group mt-3">
+            <div className="form-group mt-3 text-center">
                 <label>Password</label>
                 <input
                 type="password"
@@ -92,18 +92,20 @@ const SignUpPage = (props) => {
                 value={password}
                 />
             </div>
-            <div>
-                    <input value="student" className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={type === 'student'} onChange={onChangeType}/>
-                    <label className="form-check-label" htmlFor="flexRadioDefault1">
-                     Student
-                    </label>
-                    <input value="contributor" className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked={type === 'contributor'} onChange={onChangeType}/>
-                    <label className="form-check-label" htmlFor="flexRadioDefault2">
-                    Contributor
-                    </label>
+            <div >
+                    <div className="form-inline form-group" style={{textAlign:"center"}}>
+                        <input value="student" className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={type === 'student'} onChange={onChangeType}/>
+                        <label className="form-check-label" htmlFor="flexRadioDefault1">
+                        Student
+                        </label>
+                        <input value="contributor" className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked={type === 'contributor'} onChange={onChangeType}/>
+                        <label className="form-check-label" htmlFor="flexRadioDefault2">
+                        Contributor
+                        </label>
+                    </div>
             </div>
             <div className="d-grid gap-2 mt-3">
-                <button className="btn btn-primary" onClick={signUpHandler}>
+                <button className="btn btn-primary" onClick={signUpHandler} style={{width: "50%", margin: "auto"}}>
                 Sign Up
                 </button>
             </div>

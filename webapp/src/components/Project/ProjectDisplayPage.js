@@ -1,6 +1,7 @@
 import React, {useEffect, useReducer, useState} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Editor, EditorState, convertFromRaw} from 'draft-js';
+import "../../css/displayPage.css"
 import url from '../../constants/apiurl'
 import axios from 'axios';
 
@@ -68,7 +69,7 @@ const ProjectDisplayPage = (props) => {
   }
   
   return (
-    <div>
+    <div className="displayPage">
       <h3>Capstone Projects</h3>
       <div className="titleDisplayPage">
         {state.title}
@@ -80,8 +81,9 @@ const ProjectDisplayPage = (props) => {
       <button className="btn btn-primary" onClick={likeProjectHandler}>{buttonText}</button>
       <div>
         Contributed by:
+        {displayUsernames}
       </div>
-      {displayUsernames}
+      <div>Goal: ${state.goal}</div>
     </div>
   );
 };

@@ -143,6 +143,11 @@ form {
     }
   }
     
-   
 
-    
+  .signInText{
+    margin-top: 10px;
+  }  
+
+  .labelText{
+    margin-right: 5px;
+  }

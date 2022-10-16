@@ -13,6 +13,7 @@ import SignUpPage from './components/IndexPages/SignUpPage';
 //import the css file
 import './css/App.css';
 import UploadProject from './components/Student/UploadProject';
+import Navbar from './components/IndexPages/NavBar';
 
 function App() {
     
@@ -21,8 +22,10 @@ function App() {
   const [user, setUser] = useState({email: null, type: null}) // type is 'student' or 'contributor' 
 
   return (
+    
     <Router>
-      <Heading isLoggedIn={isLoggedIn} user={user}/>
+      
+      <Navbar user={user}/>
       <Routes>
         <Route path='/' element={<IndexPage/>} />
         <Route path='/login' element={<LoginPage loggedInAttributes={[isLoggedIn, setIsLoggedIn]} userAttributes={[user, setUser]}/>}/>  
@@ -33,7 +36,8 @@ function App() {
           <Route path='edit-project' element={<UploadProject user={user} editMode={true} />} />
         </Route>
         <Route path='contributor' element={<Protected isLoggedIn={isLoggedIn} matchType={user.type==='contributor'}/>}> 
-          <Route path='view' element={<ContributorViewPage user={user}/>} />
+          <Route path='view' element={<ContributorViewPage user={user} filterLiked={false}/>} />
+          <Route path='likedprojects' element={<ContributorViewPage user={user} filterLiked={true}/>} />
           <Route path='view-project' element={<ProjectDisplayPage user={user}/>} />
         </Route>
         <Route path='project' element={<Protected isLoggedIn={isLoggedIn} />}>

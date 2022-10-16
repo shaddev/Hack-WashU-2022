@@ -18,11 +18,7 @@ const IndexPage = () => {
 
     return(
         <div>
-            <h3>
-                Home Page here
-            </h3>
-            <img src="https://cdn.discordapp.com/attachments/1030279651504955453/1030922978428457013/unknown.png" className="rounded mx-auto d-block"alt="Responsive image" height='400' width="400"/>
-            
+            <img src="https://cdn.discordapp.com/attachments/1030279651504955453/1031004643561590834/Natural_Resource_Depletion-amico.png" class="rounded mx-auto d-block"alt="Responsive image" height='400' width="400"/>            
             <div className="text-center">
                 <button className="btn btn-primary" href="#" role="button" onClick={navigateSignUp}>
                     Sign Up
@@ -30,6 +26,9 @@ const IndexPage = () => {
                 <button className="btn btn-primary" href="#" role="button" onClick={navigateLogIn}>
                     Log In
                 </button>
+            </div>
+            <div>
+                <img src="https://cdn.discordapp.com/attachments/1030279651504955453/1031183224736583740/unknown.png" class="bottom" alt="" height='100' width="100" align="right"/>
             </div>
         </div>
     )
