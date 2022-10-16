@@ -392,7 +392,7 @@ app.post('/like_project',jsonParser,function(req, res){
   res.send("POST successfull")
 });
 
-app.post('/unlike_project',jsonParser,function(req, res){
+app.post('/unlike_project',jsonParser,async function(req, res){
   /*var payload = verify(req)
   if(payload==400||payload==401){
     return res.status(payload).end()
@@ -402,15 +402,16 @@ app.post('/unlike_project',jsonParser,function(req, res){
   }
   var project_query = {_id : ObjectId(req.body.project_id)}
   const project_collection = client.db("hackwashu2022").collection("projects");
-  project_collection.update(project_query,{$pull: project_obj});
+  await project_collection.update(project_query,{$pull: project_obj}).then(async function(){
+    var contributor_obj ={
+      liked_projects:ObjectId(req.body.project_id)
+    }
+    var contributor_query = {email : req.body.email}
+    const contributor_collection = client.db("hackwashu2022").collection("contributors");
+    await contributor_collection.update(contributor_query,{$pull: contributor_obj}).then(()=>{res.send("POST successfull")});
+});
 
-  var contributor_obj ={
-    liked_projects:req.body.project_id
-  }
-  var contributor_query = {email : req.body.email}
-  const contributor_collection = client.db("hackwashu2022").collection("contributors");
-  contributor_collection.update(contributor_query,{$pull: contributor_obj});
-  res.send("POST successfull")
+  
 });
 
 app.listen(process.env.PORT||5000, () => {
