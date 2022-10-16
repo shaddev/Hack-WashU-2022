@@ -384,7 +384,9 @@ app.post('/like_project',jsonParser,function(req, res){
   var contributor_obj ={
     liked_projects:ObjectId(req.body.project_id)
   }
-  var contributor_query = {_id : ObjectId(req.body.contributor_id)}
+
+
+  var contributor_query = {email : req.body.email}
   const contributor_collection = client.db("hackwashu2022").collection("contributors");
   contributor_collection.update(contributor_query,{$addToSet: contributor_obj});
   res.send("POST successfull")
@@ -405,7 +407,7 @@ app.post('/unlike_project',jsonParser,function(req, res){
   var contributor_obj ={
     liked_projects:req.body.project_id
   }
-  var contributor_query = {_id : ObjectId(req.body.contributor_id)}
+  var contributor_query = {email : req.body.email}
   const contributor_collection = client.db("hackwashu2022").collection("contributors");
   contributor_collection.update(contributor_query,{$pull: contributor_obj});
   res.send("POST successfull")
