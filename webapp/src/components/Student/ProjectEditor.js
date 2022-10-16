@@ -1,7 +1,12 @@
 import React, {useState, useRef} from "react";
 import {Editor, EditorState, RichUtils} from 'draft-js';
 import 'draft-js/dist/Draft.css';
-import '../../css/UploadProject.css'
+import '../../css/UploadProject.css';
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 const ProjectEditor = (props) => {
 
@@ -25,6 +30,10 @@ const ProjectEditor = (props) => {
         setEditorState(RichUtils.toggleInlineStyle(editorState, 'BOLD'))
         }
 
+    const onUnderlineClick = () => { 
+        setEditorState(RichUtils.toggleInlineStyle(editorState, 'UNDERLINE'))
+        }
+
     const editor = useRef(null);
     const focusEditor = () => {
         editor.current.focus();
@@ -34,20 +43,23 @@ const ProjectEditor = (props) => {
     return (
         <div className="editor" onClick={focusEditor}>
             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div className="btn-group mr-2" role="group" aria-label="First group">
-                    <button type="button" className="btn btn-secondary" onMouseDown={onItalicClick}>
-                        <strong><em>I</em></strong>
-                    </button>
-                    <button type="button" className="btn btn-secondary" onMouseDown={onBoldClick} >
-                        <strong>B</strong>
-                    </button>
-                </div>
+                <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                    <Button value="bold" aria-label="bold" onMouseDown={onBoldClick}>
+                        <FormatBoldIcon />
+                    </Button>
+                    <Button value="italic" aria-label="italic" onMouseDown={onItalicClick}>
+                        <FormatItalicIcon />
+                    </Button>
+                    <Button value="underlined" aria-label="underlined" onMouseDown={onUnderlineClick}>
+                        <FormatUnderlinedIcon />
+                    </Button>
+                </ButtonGroup>
             </div>
             <Editor ref={editor}
                     editorState={editorState}
                     handleKeyCommand={handleKeyCommand}
                     onChange={setEditorState}
-                    placeholder="Write something!" />
+                    placeholder="Write your story here!" />
         </div>
     );
 };

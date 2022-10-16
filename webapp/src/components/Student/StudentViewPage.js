@@ -3,6 +3,8 @@ import {useNavigate} from "react-router-dom"
 import ProjectListView from "../Project/ProjectListView";
 import axios from 'axios';
 import url from '../../constants/apiurl'
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 const StudentViewPage = (props) => {
 
@@ -24,17 +26,6 @@ const StudentViewPage = (props) => {
                 setProjects(response.data)
              })
     },[]) 
-    
-/*
-    if (projects === undefined){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }
-
-*/
 
 
     return(
@@ -42,8 +33,12 @@ const StudentViewPage = (props) => {
             <h3>
                 Student View Page
             </h3>
+            <Box>
+                <Button variant="contained" component="label" onClick={navigateUploadProject}>Upload</Button>
+            </Box>
             {projects === undefined||projects.length===0 ? <div>Add projects!</div> : <ProjectListView projects={projects} user_type={"student"} />}
-            <button onClick={navigateUploadProject}>Upload Project</button>
+            
+            
         </div>
     )
 }

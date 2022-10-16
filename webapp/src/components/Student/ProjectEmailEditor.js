@@ -7,7 +7,7 @@ const ProjectEmailEditor = (props) => {
     
     return (
         <div>
-            <h3>Email</h3>
+            <h3>Email Addresses of Team Members</h3>
             <ReactMultiEmail
             emails={emails}
             onChange={setEmails}

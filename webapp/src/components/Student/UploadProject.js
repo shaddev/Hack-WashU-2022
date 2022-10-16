@@ -9,6 +9,7 @@ import ProjectImage from "./ProjectImage";
 import ProjectEditor from "./ProjectEditor";
 import ProjectEmailEditor from "./ProjectEmailEditor";
 import ProjectGoal from "./ProjectGoal";
+import Button from '@mui/material/Button';
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
 const UploadProject = (props) => {
@@ -72,14 +73,14 @@ const UploadProject = (props) => {
         
     }
     return (
-        <div>
-        <h3>Upload Project here lmao</h3>
-        <ProjectTitle titleAttributes={[title, setTitle]}/>
-        <ProjectEditor editorAttributes={[editorState, setEditorState]}/>
-        <ProjectImage uploadedImageAttributes={[uploadedImage, setUploadedImage]} />
-        <ProjectEmailEditor emailsAttributes={[emails, setEmails]}/>
-        <ProjectGoal goalAttributes={[goal, setGoal]} />
-        <button className="btn btn-primary" onClick={uploadProjectHandler}>Upload Project</button>
+        <div className="uploadProject">
+            <h3>Upload Project</h3>
+            <ProjectTitle titleAttributes={[title, setTitle]}/>
+            <ProjectEditor editorAttributes={[editorState, setEditorState]}/>
+            <ProjectImage uploadedImageAttributes={[uploadedImage, setUploadedImage]} />
+            <ProjectEmailEditor emailsAttributes={[emails, setEmails]}/>
+            <ProjectGoal goalAttributes={[goal, setGoal]} />
+            <Button className="uploadButton" variant="contained" component="label" onClick={uploadProjectHandler}>Upload</Button> 
         </div>
     );
 };

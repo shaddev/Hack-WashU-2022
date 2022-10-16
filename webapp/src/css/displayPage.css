@@ -1,0 +1,12 @@
+.titleDisplayPage{
+    font-size: large;
+    text-align: center;
+    font-weight: bold;
+}
+
+.imageDisplayPage{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

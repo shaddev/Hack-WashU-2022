@@ -30,6 +30,10 @@ const ProjectDisplayPage = (props) => {
           changeText("Like")
         }
     }, [])
+
+    const displayUsernames = state.member_emails.map((email) => {
+        return <div>{email}</div>
+    })
     
 
     const likeProjectHandler = () => {
@@ -66,11 +70,18 @@ const ProjectDisplayPage = (props) => {
   return (
     <div>
       <h3>Capstone Projects</h3>
-      <div>
+      <div className="titleDisplayPage">
+        {state.title}
+      </div>
+      <div className="imageDisplayPage">
         <img src={state.image} alt="not found" width={500}  className="center"/>
       </div>
       <Editor editorState={editorState} readOnly={readOnly}/>
       <button className="btn btn-primary" onClick={likeProjectHandler}>{buttonText}</button>
+      <div>
+        Contributed by:
+      </div>
+      {displayUsernames}
     </div>
   );
 };

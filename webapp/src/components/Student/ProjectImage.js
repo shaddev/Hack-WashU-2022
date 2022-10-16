@@ -30,7 +30,7 @@ const ProjectImage = (props) => {
             <h1>Upload Image</h1>
             {uploadedImage && (
                 <div>
-                <img alt="not found" width={"250px"} src={uploadedImage} />
+                <img alt="not found" src={uploadedImage} />
                 <br />
                 <button onClick={()=>setUploadedImage(null)}>Remove</button>
                 </div>
