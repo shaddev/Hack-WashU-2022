@@ -19,11 +19,9 @@ const StudentViewPage = (props) => {
     useEffect(() => {
         axios.get(url+"/get_student_projects", {params: {email: user.email}})
              .then((response) => {
+                console.log(response)
                 //setProjects here
-                for(let i = 0; i < response.data.length; i++){
-                    var temp = projects.concat(response.data[i])
-                    setProjects(temp)
-                }
+                setProjects(response.data)
              })
     },[]) 
     

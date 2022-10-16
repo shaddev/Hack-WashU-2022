@@ -10,7 +10,7 @@ const ProjectTitle = (props) => {
 
     return (
         <div className="titleUploadProject">
-            <input value={props.titleText} onChange={onChangeTitle} placeholder="Title"></input>
+            <input value={title} onChange={onChangeTitle} placeholder="Title"></input>
         </div>
     );
 };

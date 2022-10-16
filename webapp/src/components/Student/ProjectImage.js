@@ -3,24 +3,16 @@ import React, {useEffect} from "react";
 const ProjectImage = (props) => {
   
     const [uploadedImage, setUploadedImage] = props.uploadedImageAttributes
-    const [base64Image, setBase64Image] = props.base64ImageAttributes
     
     console.log(uploadedImage)
 
-    useEffect(() => {
-        if(uploadedImage){
-                blobToBase64(uploadedImage)
+    const onChangeUploadedImage = (event) => {
+        blobToBase64(event.target.files[0])
                             .then(generatedBase64Image => {
                                 console.log(generatedBase64Image)
-                                setBase64Image(generatedBase64Image)
-                            }
-                            )
-                }
-     }, [uploadedImage]);
+                                setUploadedImage(generatedBase64Image)
+                            })
 
-    const onChangeUploadedImage = (event) => {
-        console.log(uploadedImage)
-        setUploadedImage(event.target.files[0]);
     }
 
     const blobToBase64 = (blob) => {
@@ -38,7 +30,7 @@ const ProjectImage = (props) => {
             <h1>Upload Image</h1>
             {uploadedImage && (
                 <div>
-                <img alt="not found" width={"250px"} src={base64Image} />
+                <img alt="not found" width={"250px"} src={uploadedImage} />
                 <br />
                 <button onClick={()=>setUploadedImage(null)}>Remove</button>
                 </div>
