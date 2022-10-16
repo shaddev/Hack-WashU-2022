@@ -186,6 +186,21 @@ app.get('/get_project/:id', (req, res) => {
 	});
 });
 
+app.get('/get_liked_projects', (req, res) => {
+  var contributor_query = {email: req.query.email}
+  const contributor_collection = client.db("hackwashu2022").collection("contributors");
+  contributor_collection.find(contributor_query).toArray(function(err,result){
+    const project_collection = client.db("hackwashu2022").collection("projects");
+    var project_query = {_id: {$in:result[0]["liked_projects"]}}
+    project_collection.find(project_query).toArray(async function(err,projects){
+      console.log(projects)
+      res.send(projects)
+    })
+	});
+  
+});
+
+
 app.get('/get_all_projects', (req, res) => {
   var query = {}
   const collection = client.db("hackwashu2022").collection("projects");
@@ -366,7 +381,7 @@ app.post('/like_project',jsonParser,function(req, res){
   project_collection.update(project_query,{$addToSet: project_obj});
 
   var contributor_obj ={
-    liked_projects:req.body.project_id
+    liked_projects:ObjectId(req.body.project_id)
   }
   var contributor_query = {_id : ObjectId(req.body.contributor_id)}
   const contributor_collection = client.db("hackwashu2022").collection("contributors");
