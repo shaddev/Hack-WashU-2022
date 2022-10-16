@@ -6,6 +6,8 @@ const Heading = (props) => {
   const type = props.user.type;
   const isLoggedIn = props.isLoggedIn;
 
+  const user = props.user;
+
   const navigate = useNavigate();
 
   const navigateHome = () => {
@@ -22,7 +24,7 @@ const Heading = (props) => {
 
   return (
     <div className="heading" onClick={navigateHome}>
-      <h3>Logged In? {props.isLoggedIn.toString()}</h3>
+      <h3>Capstone Projects</h3>
     </div>
   );
 };

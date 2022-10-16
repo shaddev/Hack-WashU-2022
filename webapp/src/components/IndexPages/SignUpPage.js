@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import axios from 'axios';
-import {useNavigate} from "react-router-dom"
+import {Navigate, useNavigate} from "react-router-dom"
 import url from '../../constants/apiurl'
 
 const SignUpPage = (props) => {
@@ -9,6 +9,8 @@ const SignUpPage = (props) => {
     const [password, setPassword] = useState("")
     const [fullName, setFullName] = useState("")
     const [type, setType] = useState("student") // default to student
+
+    const navigate = useNavigate()
 
     const onChangeEmail = (event) => {
         setEmail(event.target.value)
@@ -42,6 +44,7 @@ const SignUpPage = (props) => {
                 {email: email, pass_hash: password, full_name: fullName})
             .then((response) => {
                 console.log(response)
+                navigate("/login")
             })
             .catch((err) => {
                 console.log(err)

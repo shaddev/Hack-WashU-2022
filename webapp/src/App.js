@@ -17,7 +17,7 @@ function App() {
     
   
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [user, setUser] = useState({email: 'shad123', type: 'student'}) // type is 'student' or 'contributor' 
+  const [user, setUser] = useState({email: null, type: null}) // type is 'student' or 'contributor' 
 
   return (
     <Router>
