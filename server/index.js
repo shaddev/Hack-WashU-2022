@@ -21,13 +21,9 @@ const client = new MongoClient(uri, { useUnifiedTopology: true});
 
 var jsonParser = bodyParser.json()
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors({
-  'allowedHeaders': ['sessionId', 'Content-Type'],
-  'exposedHeaders': ['sessionId'],
-  'credentials': true,
-  'origin': ['http://localhost:3000', 'http://localhost:3000'],
-}))
+app.use(cors())
 app.use(cookieParser())
+app.use(express.static(path.join(__dirname, "client", "build")))
 
 app.get('/', (req, res) => {
 	res.send('Hack WashU 2022 API');
@@ -412,6 +408,10 @@ app.post('/unlike_project',jsonParser,async function(req, res){
 });
 
   
+});
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(process.env.PORT||5000, () => {
