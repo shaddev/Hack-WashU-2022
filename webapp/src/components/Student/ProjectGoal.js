@@ -11,7 +11,7 @@ const ProjectGoal = (props) => {
   return (
     <div>
       <h3>Goal</h3>
-      $<input type="number" onChange={onChangeGoal} defaultValue={0} min="0"/>
+      $<input type="number" onChange={onChangeGoal} defaultValue={0} value={goal} min="0"/>
     </div>
   );
 };
