@@ -9,7 +9,7 @@ const ProjectCard = (props) => {
 
   const navigateProject = () => {
     console.log(project)
-    navigate('/project/view', {state: project})
+    navigate('/student/edit-project', {state: project})
   }
 
   return (

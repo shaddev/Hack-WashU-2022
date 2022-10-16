@@ -30,6 +30,7 @@ function App() {
         <Route path='student' element={<Protected isLoggedIn={isLoggedIn} matchType={user.type==='student'}/>}> 
           <Route path='view' element={<StudentViewPage user={user}/>} />
           <Route path='upload-project' element={<UploadProject user={user}/>} />
+          <Route path='edit-project' element={<UploadProject user={user} editMode={true} />} />
         </Route>
         <Route path='contributor' element={<Protected isLoggedIn={isLoggedIn} matchType={user.type==='contributor'}/>}> 
           <Route path='view' element={<ContributorViewPage user={user}/>} />

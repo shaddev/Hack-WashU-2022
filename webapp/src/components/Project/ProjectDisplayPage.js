@@ -6,7 +6,7 @@ const ProjectDisplayPage = (props) => {
 
     const { state } = useLocation()
 
-    const project = state.project
+    const readOnly = true;
 
     console.log(state)
 
@@ -15,14 +15,17 @@ const ProjectDisplayPage = (props) => {
     );
 
     useEffect(() => {
-        const description = JSON.parse(project.description)
+        const description = JSON.parse(state.description)
         setEditorState(EditorState.createWithContent(convertFromRaw(description)))
-    }, editorState)
+    }, [])
 
   return (
     <div>
       <h3>Capstone Projects</h3>
-      <Editor editorState={editorState}/>
+      <div>
+        <img src={state.image} alt="not found" width={500}  className="center"/>
+      </div>
+      <Editor editorState={editorState} readOnly={readOnly}/>
     </div>
   );
 };

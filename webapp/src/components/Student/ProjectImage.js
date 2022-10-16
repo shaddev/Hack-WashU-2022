@@ -38,7 +38,7 @@ const ProjectImage = (props) => {
             <h1>Upload Image</h1>
             {uploadedImage && (
                 <div>
-                <img alt="not found" width={"250px"} src={URL.createObjectURL(uploadedImage)} />
+                <img alt="not found" width={"250px"} src={base64Image} />
                 <br />
                 <button onClick={()=>setUploadedImage(null)}>Remove</button>
                 </div>

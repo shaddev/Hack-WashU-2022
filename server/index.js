@@ -259,21 +259,22 @@ app.post('/edit_project',jsonParser,function(req, res) {
   if(payload==400||payload==401){
     return res.status(payload).end()
   }*/
-  bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
-      title:req.body.title,
-      description:req.body.description,
-      image:req.body.image,
-      goal:req.body.goal,
-      contact:req.body.contact,
-      links:req.body.links,
+        member_emails:req.body.member_emails,
+        title:req.body.title,
+        description:req.body.description,
+        image:req.body.image,
+        goal:req.body.goal,
+        contact:req.body.contact,
+        links:req.body.links,
+        likers:[]
     }
     var id=req.body._id
     var query = {_id : ObjectId(id)}
     const collection = client.db("hackwashu2022").collection("projects");
     collection.update(query,{$set: obj});
     res.send("POST successful!")
-  });
+  
 });
 
 
