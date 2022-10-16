@@ -6,7 +6,12 @@ const Protected = (props) => {
     const isLoggedIn = props.isLoggedIn;
     const matchType = props.matchType;
 
-    return (isLoggedIn && matchType) ? <Outlet /> : <Navigate to="/login" />;
+    if (matchType === undefined){
+        return (isLoggedIn) ? <Outlet /> : <Navigate to="/login" />;
+    } else{
+        return (isLoggedIn && matchType) ? <Outlet /> : <Navigate to="/login" />;
+    }
+
 }
 
 export default Protected;

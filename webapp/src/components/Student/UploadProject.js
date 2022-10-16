@@ -22,20 +22,12 @@ const UploadProject = (props) => {
         );
     
     const [uploadedImage, setUploadedImage] = useState(null)
+    const [base64Image, setBase64Image] = useState("")
 
     const [emails, setEmails] = useState([])
 
     const [goal, setGoal] = useState(0)
 
-    const blobToBase64 = (blob) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(blob);
-        return new Promise(resolve => {
-          reader.onloadend = () => {
-            resolve(reader.result);
-          };
-        });
-      };
 
     const uploadProjectHandler = () => {
         
@@ -45,15 +37,19 @@ const UploadProject = (props) => {
         const editorString = JSON.stringify(convertToRaw(editorState.getCurrentContent()))
         console.log(user.email)
         console.log(title)
-        console.log(uploadedImage)
+        console.log(base64Image)
         console.log(editorString)
         console.log(emails)
         console.log(goal)
 
-        blobToBase64(uploadedImage)
-            .then(base64Image => 
-                axios.post(url+'/add_project', {title: title, email:emails/*user.email*/, goal:goal, image: base64Image})
-            )
+        axios.post(url+'/add_project', {title: title, description: editorString, member_emails:[...emails, user.email], goal:goal, image: base64Image})
+             .then((response) => {
+                console.log(response)
+             })
+             .catch((err) => {
+                console.log(err)
+             })
+             .finally()
         
     }
     return (
@@ -61,7 +57,7 @@ const UploadProject = (props) => {
         <h3>Upload Project here lmao</h3>
         <ProjectTitle titleAttributes={[title, setTitle]}/>
         <ProjectEditor editorAttributes={[editorState, setEditorState]}/>
-        <ProjectImage uploadedImageAttributes={[uploadedImage, setUploadedImage]} />
+        <ProjectImage uploadedImageAttributes={[uploadedImage, setUploadedImage]} base64ImageAttributes={[base64Image, setBase64Image]}/>
         <ProjectEmailEditor emailsAttributes={[emails, setEmails]}/>
         <ProjectGoal goalAttributes={[goal, setGoal]} />
         <button className="btn btn-primary" onClick={uploadProjectHandler}>Upload Project</button>

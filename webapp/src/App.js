@@ -6,6 +6,7 @@ import IndexPage from './components/IndexPages/IndexPage';
 import Protected from './components/IndexPages/Protected';
 import StudentViewPage from './components/Student/StudentViewPage';
 import ContributorViewPage from './components/Contributor/ContributorViewPage';
+import ProjectDisplayPage from './components/Project/ProjectDisplayPage';
 import "bootstrap/dist/css/bootstrap.min.css";
 import SignUpPage from './components/IndexPages/SignUpPage';
 
@@ -32,6 +33,9 @@ function App() {
         </Route>
         <Route path='contributor' element={<Protected isLoggedIn={isLoggedIn} matchType={user.type==='contributor'}/>}> 
           <Route path='view' element={<ContributorViewPage user={user}/>} />
+        </Route>
+        <Route path='project' element={<Protected isLoggedIn={isLoggedIn} />}>
+          <Route path='view' element={<ProjectDisplayPage user={user}/>} />
         </Route>
       </Routes>
     </Router>

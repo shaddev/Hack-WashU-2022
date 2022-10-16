@@ -1,9 +1,37 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 const ProjectImage = (props) => {
   
     const [uploadedImage, setUploadedImage] = props.uploadedImageAttributes
+    const [base64Image, setBase64Image] = props.base64ImageAttributes
+    
     console.log(uploadedImage)
+
+    useEffect(() => {
+        if(uploadedImage){
+                blobToBase64(uploadedImage)
+                            .then(generatedBase64Image => {
+                                console.log(generatedBase64Image)
+                                setBase64Image(generatedBase64Image)
+                            }
+                            )
+                }
+     }, [uploadedImage]);
+
+    const onChangeUploadedImage = (event) => {
+        console.log(uploadedImage)
+        setUploadedImage(event.target.files[0]);
+    }
+
+    const blobToBase64 = (blob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        return new Promise(resolve => {
+          reader.onloadend = () => {
+            resolve(reader.result);
+          };
+        });
+      };
 
     return (
         <div>
@@ -21,10 +49,7 @@ const ProjectImage = (props) => {
             <input
                 type="file"
                 name="myImage"
-                onChange={(event) => {
-                console.log(event.target.files[0]);
-                setUploadedImage(event.target.files[0]);
-                }}
+                onChange={onChangeUploadedImage}
             />
         </div>
     );
