@@ -11,7 +11,10 @@ const ProjectDisplayPage = (props) => {
     const user = props.user
     const readOnly = true;
 
-    //console.log(state)
+    console.log(state)
+
+    const [buttonText, setButtonText] = useState("Next"); //same as creating your state variable where "Next" is the default value for buttonText and setButtonText is the setter function for your state variable instead of setState
+    const changeText = (text) => setButtonText(text);
 
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
@@ -20,6 +23,12 @@ const ProjectDisplayPage = (props) => {
     useEffect(() => {
         const description = JSON.parse(state.description)
         setEditorState(EditorState.createWithContent(convertFromRaw(description)))
+        if(state.likers.includes(user.email)){
+          changeText("Unlike")
+        }
+        else{
+          changeText("Like")
+        }
     }, [])
     
 
@@ -30,30 +39,25 @@ const ProjectDisplayPage = (props) => {
         email:user.email
       }
       console.log(payload)
-      projectUrl = url + '/like_project'
-      axios.post(projectUrl, payload)
-           .then((response) => {
-              console.log(response)
-           })
-           .catch((err) => {
-          //    console.log(err)
-           })
-           .finally()
-    }
-    const unlikeProjectHandler = () => {
-      let projectUrl;
-      let payload = {
-        project_id:state._id,
-        email:user.email
+      projectUrl=""
+      if(state.likers.includes(user.email)){
+
+        projectUrl = url + '/unlike_project'
+        changeText("Like")
       }
-      console.log(payload)
-      projectUrl = url + '/unlike_project'
+      else{
+        
+        projectUrl = url + '/like_project'
+        changeText("Unlike")
+      }
+
+  
       axios.post(projectUrl, payload)
            .then((response) => {
               console.log(response)
            })
            .catch((err) => {
-      //        console.log(err)
+              console.log(err)
            })
            .finally()
       
@@ -66,8 +70,7 @@ const ProjectDisplayPage = (props) => {
         <img src={state.image} alt="not found" width={500}  className="center"/>
       </div>
       <Editor editorState={editorState} readOnly={readOnly}/>
-      <button className="btn btn-primary" onClick={likeProjectHandler}>Like</button>
-      <button className="btn btn-primary" onClick={unlikeProjectHandler}>Unlike</button>
+      <button className="btn btn-primary" onClick={likeProjectHandler}>{buttonText}</button>
     </div>
   );
 };
