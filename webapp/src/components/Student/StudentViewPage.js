@@ -44,7 +44,7 @@ const StudentViewPage = (props) => {
             <h3>
                 Student View Page
             </h3>
-            {projects === undefined||projects.length===0 ? <div>Add projects!</div> : <ProjectListView projects={projects} />}
+            {projects === undefined||projects.length===0 ? <div>Add projects!</div> : <ProjectListView projects={projects} user_type={"student"} />}
             <button onClick={navigateUploadProject}>Upload Project</button>
         </div>
     )

@@ -44,7 +44,7 @@ const ContributorViewPage = (props) => {
             <h3>Contributor main page</h3>
             <h2>Feed</h2>
             <ProjectListView projects={projects}/>
-            {/*liked_projects.length===0*/1!=1 ? <h2>Start liking projects!</h2> : <div><h2>Liked</h2><ProjectListView projects={liked_projects}/></div>}
+            {/*liked_projects.length===0*/1!=1 ? <h2>Start liking projects!</h2> : <div><h2>Liked</h2><ProjectListView projects={liked_projects} user_type={"contributor"}/></div>}
         </div>
     )
     
