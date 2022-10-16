@@ -199,8 +199,8 @@ app.get('/get_student_projects', (req, res) => {/*
   if(payload==400||payload==401){
     return res.status(payload).end()
   }*/
-  var email=req.body.email
-  var query = {member_emails:{$elemMatch:{email}}}
+  var email=req.query.email
+  var query = {member_emails: email}
   const collection = client.db("hackwashu2022").collection("projects");
   collection.find(query).toArray(function(err,result){
     //console.log(result)
