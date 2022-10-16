@@ -34,6 +34,7 @@ function App() {
         </Route>
         <Route path='contributor' element={<Protected isLoggedIn={isLoggedIn} matchType={user.type==='contributor'}/>}> 
           <Route path='view' element={<ContributorViewPage user={user}/>} />
+          <Route path='view-project' element={<ProjectDisplayPage user={user}/>} />
         </Route>
         <Route path='project' element={<Protected isLoggedIn={isLoggedIn} />}>
           <Route path='view' element={<ProjectDisplayPage user={user}/>} />

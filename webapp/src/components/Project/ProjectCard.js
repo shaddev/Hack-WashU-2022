@@ -4,12 +4,17 @@ import {useNavigate} from "react-router-dom";
 const ProjectCard = (props) => {
 
   const project = props.project
+  const user_type= props.user_type
 
   const navigate = useNavigate()
 
   const navigateProject = () => {
-    console.log(project)
-    navigate('/student/edit-project', {state: project})
+    if(user_type=="student"){
+      navigate('/student/edit-project', {state: project})
+    }
+    else{
+      navigate('/contributor/view-project', {state: project})
+    }
   }
 
   return (
