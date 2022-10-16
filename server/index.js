@@ -38,16 +38,16 @@ app.get('/', (req, res) => {
 app.post('/signin_student', (req, res) => {
   // Get credentials from JSON body
   const { email, password } = req.body
-  console.log(req.body)
+  //console.log(req.body)
   var query = {email : email}
   const collection = client.db("hackwashu2022").collection("students");
   collection.find(query).toArray(async function(err,result){
     if (result.length!=0){
-      console.log(password)
-      console.log(result[0]["pass_hash"])
+      //console.log(password)
+      //console.log(result[0]["pass_hash"])
       await bcrypt.compare(password, result[0]["pass_hash"])
                 .then((result) => {
-                    console.log(result)
+                    //console.log(result)
                     if(result){
                         res.send({email: email})
                     }
@@ -67,16 +67,16 @@ app.post('/signin_student', (req, res) => {
 app.post('/signin_contributor', (req, res) => {
   // Get credentials from JSON body
   const { email, password } = req.body
-  console.log(req.body)
+  //console.log(req.body)
   var query = {email : email}
   const collection = client.db("hackwashu2022").collection("contributors");
   collection.find(query).toArray(async function(err,result){
     if (result.length!=0){
-      console.log(password)
-      console.log(result[0]["pass_hash"])
+      //console.log(password)
+      //console.log(result[0]["pass_hash"])
       await bcrypt.compare(password, result[0]["pass_hash"])
                    .then((result) => {
-                    console.log(result)
+                    //console.log(result)
                     if(result){
                         res.send({email: email})
                     }
@@ -95,7 +95,7 @@ app.post('/signin_contributor', (req, res) => {
     algorithm: 'HS256',
     expiresIn: jwtExpirySeconds
   })
-  console.log('token:', token)
+  //console.log('token:', token)
 
   // set the cookie as the token string, with a similar max age as the token
   // here, the max age is in milliseconds, so we multiply by 1000
@@ -136,7 +136,7 @@ app.get('/welcome', (req, res) => {
   if(payload==400||payload==401){
     return res.status(payload).end()
   }
-  console.log(payload)
+  //console.log(payload)
   // Finally, return the welcome message to the user, along with their
   // username given in the token
   res.send(payload.email)
@@ -203,8 +203,8 @@ app.get('/get_student_projects', (req, res) => {/*
   var query = {member_emails:{$elemMatch:{email}}}
   const collection = client.db("hackwashu2022").collection("projects");
   collection.find(query).toArray(function(err,result){
-    console.log(result)
-    console.log(email)
+    //console.log(result)
+    //console.log(email)
     res.send(result)
 	});
 });
@@ -214,21 +214,29 @@ app.post('/add_project',jsonParser,function(req, res) {
   if(payload==400||payload==401){
     return res.status(payload).end()
   }*/
-  bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
-    var obj = {
-      member_emails:req.body.emails,
-      title:req.body.title,
-      description:req.body.description,
-      image:req.body.image,
-      goal:req.body.goal,
-      contact:req.body.contact,
-      links:req.body.links,
-      likers:[]
+  var obj = {
+    member_emails:req.body.member_emails,
+    title:req.body.title,
+    description:req.body.description,
+    image:req.body.image,
+    goal:req.body.goal,
+    contact:req.body.contact,
+    links:req.body.links,
+    likers:[]
+  }
+  const project_collection = client.db("hackwashu2022").collection("projects");
+  project_collection.insert(obj, function(err,inserted_obj){
+    const student_collection = client.db("hackwashu2022").collection("students");
+    var obj = {involved_projects:ObjectId(inserted_obj["insertedIds"]["0"].toString())}
+    for(let i = 0; i < req.body.member_emails.length; i++){
+        var query = {email:{$in:[req.body.member_emails[i]]}}
+        console.log(query)
+        student_collection.update(query,{$addToSet: obj});
     }
-    const collection = client.db("hackwashu2022").collection("projects");
-    collection.insert(obj);
-    res.send("POST successful!")
   });
+  
+  
+  res.send("POST successful!")
 });
 
 app.post('/edit_project',jsonParser,function(req, res) {

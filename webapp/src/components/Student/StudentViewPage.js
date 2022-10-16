@@ -20,11 +20,9 @@ const StudentViewPage = (props) => {
         axios.get(url+"/get_student_projects", {params: {email: user.email}})
              .then((response) => {
                 //setProjects here
-                console.log(response.data.length)
                 for(let i = 0; i < response.data.length; i++){
                     var temp = projects.concat(response.data[i])
                     setProjects(temp)
-                    console.log(response.data[i])
                 }
              })
     },[]) 
