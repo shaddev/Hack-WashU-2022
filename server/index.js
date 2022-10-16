@@ -215,8 +215,9 @@ app.post('/add_project',jsonParser,function(req, res) {
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
       member_emails:[req.body.email],
+      title:req.body.title,
       description:req.body.description,
-      image:req.body.img,
+      image:req.body.image,
       goal:req.body.goal,
       contact:req.body.contact,
       links:req.body.links,
@@ -235,8 +236,9 @@ app.post('/edit_project',jsonParser,function(req, res) {
   }*/
   bcrypt.hash(req.body.pass_hash, 10, function(err, hash) {
     var obj = {
+      title:req.body.title,
       description:req.body.description,
-      image:req.body.img,
+      image:req.body.image,
       goal:req.body.goal,
       contact:req.body.contact,
       links:req.body.links,
