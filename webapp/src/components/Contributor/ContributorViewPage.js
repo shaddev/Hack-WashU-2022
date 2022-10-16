@@ -14,20 +14,13 @@ const ContributorViewPage = (props) => {
         axios.get(url+"/get_all_projects")
              .then((response) => {
                 //setProjects here
-                for(let i = 0; i < response.data.length; i++){
-                    var temp = projects.concat(response.data[i])
-                    setProjects(temp)
-                }
+                setProjects(response.data)
              })
         
         axios.get(url+"/get_liked_projects", {params: {email: user.email}})
              .then((response) => {
                 //setProjects here
-                for(let i = 0; i < response.data.length; i++){
-                    var temp = liked_projects.concat(response.data[i])
-                    setLikedProjects(temp)
-                }
-                console.log(response)
+                setLikedProjects(response.data)
              })
     },[]) 
 /*
