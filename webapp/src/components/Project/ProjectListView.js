@@ -7,7 +7,7 @@ const ProjectListView = (props) => {
     
     const displayProjects = props.projects.map((project) => {
         return(
-            <ProjectCard project={project} />
+            <ProjectCard project={project} user_type={props.user_type} />
         )
     })
 
