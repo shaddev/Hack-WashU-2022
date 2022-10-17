@@ -1,3 +1,3 @@
-const url = "https://capstone-projects.herokuapp.com/"
+const url = "https://capstone-projects.herokuapp.com"
 
 export default url;
