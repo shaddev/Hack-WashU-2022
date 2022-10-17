@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 app.post('/signin_student', (req, res) => {
   // Get credentials from JSON body
   const { email, password } = req.body
+  console.log(email)
   //console.log(req.body)
   var query = {email : email}
   const collection = client.db("hackwashu2022").collection("students");
