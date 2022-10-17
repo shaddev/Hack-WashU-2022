@@ -3,7 +3,7 @@
         "node": "16.13.0"
       },
       "scripts": {
-        "start": "cd server && npm install && node index.js",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd webapp && npm install && npm run build"
+        "start": "node server/index.js",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd webapp && npm install && npm run build && cd .. && cd server && npm install"
     }
 }
