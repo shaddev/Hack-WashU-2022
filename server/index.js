@@ -6,6 +6,7 @@ const { request } = require('http');
 require('dotenv').config();
 const bcrypt = require("bcrypt")
 const cors = require('cors');
+const path = require('path')
 const jwt = require('jsonwebtoken')
 
 const jwtKey = process.env.JWT_KEY
