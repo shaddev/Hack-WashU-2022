@@ -4,6 +4,6 @@
       },
       "scripts": {
         "start": "node server/index.js",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd webapp && npm install npm && run build"
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd webapp && npm install && npm run build"
     }
 }
