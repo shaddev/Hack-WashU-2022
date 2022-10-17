@@ -19,6 +19,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const ObjectId = require("mongodb").ObjectId;
 const uri = "mongodb+srv://"+mongodb_user+":"+mongodb_pass+"@hackwashu2022.rqyruvg.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useUnifiedTopology: true});
+__dirname = path.resolve();
 
 var jsonParser = bodyParser.json()
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -419,5 +420,6 @@ app.listen(process.env.PORT||5000, () => {
 	client.connect(err => {
         console.log("AYYY LMAO\n MONGODB CONNECTED!!!")
 	})
+  console.log(path.join(__dirname, "webapp", "build", "index.html"));
   console.log('Server started.');
 });
