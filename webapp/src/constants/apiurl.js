@@ -1,3 +1,3 @@
-const url = "http://localhost:5000"
+const url = "https://capstone-projects.herokuapp.com/"
 
 export default url;
