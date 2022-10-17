@@ -16,4 +16,4 @@ npm install dotenv
 node index.js
 ```
 
-[View the project here]('https://capstone-projects.herokuapp.com/')
+[View the project here](https://capstone-projects.herokuapp.com/)
